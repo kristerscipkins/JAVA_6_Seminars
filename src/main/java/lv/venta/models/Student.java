@@ -22,6 +22,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Student {
+	
 	@Column(name = "id_st")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
