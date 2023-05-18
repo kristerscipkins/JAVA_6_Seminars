@@ -15,19 +15,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "proffesor_table")
+@Table(name = "student_table")
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class Professor {
-	
-	@Column(name = "id_p")
+public class Student {
+	@Column(name = "id_st")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private long id_p;
+	private long id_st;
 	
 	@Column(name = "Name")
 	@NotNull
@@ -35,28 +34,19 @@ public class Professor {
 	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+")
 	private String name;
 	
-	@Column(name = "Surname")
+	@Column(name = "Name")
 	@NotNull
 	@Size(min = 3, max = 50)
 	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+")
 	private String surname;
-	
-	@Column(name = "Degree")
-	@NotNull
-	private Degree Degree;
 
-	public Professor(@NotNull @Size(min = 3, max = 50) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String name,
-			@NotNull @Size(min = 3, max = 50) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String surname,
-			lv.venta.models.@NotNull Degree degree) {
+	public Student(@NotNull @Size(min = 3, max = 50) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String name,
+			@NotNull @Size(min = 3, max = 50) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String surname) {
 		this.name = name;
 		this.surname = surname;
-		Degree = degree;
 	}
 
-
-
-
-
+	
 	
 	
 }
