@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -45,6 +46,10 @@ public class Professor {
 	@NotNull
 	private Degree Degree;
 
+	@OneToOne(mappedBy = "professor")
+	private Course course;
+	
+	
 	public Professor(@NotNull @Size(min = 3, max = 50) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String name,
 			@NotNull @Size(min = 3, max = 50) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String surname,
 			lv.venta.models.@NotNull Degree degree) {
