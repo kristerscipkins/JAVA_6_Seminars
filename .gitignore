@@ -7,7 +7,7 @@ target/
 .mvn/
 mvnw
 mvnw.cmd
-
+bin/
 
 ### STS ###
 .apt_generated

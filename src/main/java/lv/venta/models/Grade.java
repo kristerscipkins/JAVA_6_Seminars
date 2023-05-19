@@ -10,35 +10,46 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "grade_table")
+@Table(name = "grade_table")//table in DB
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 public class Grade {
-	
-	@Column(name = "id_g")
+	@Column(name = "Idg")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private long id_g;
+	private long idg;
 	
-	@Column(name = "grade_value")
-	@Min(0)
-	@Max(10)
-	private int grade_value;
-
+	@Column(name="Gvalue")
+	@Min(value = 0)
+	@Max(value = 10)
+	private int gvalue;
+	
 	@ManyToOne
-	@JoinColumn(name = "id_st")
+	@JoinColumn(name = "Ids")//linked with column name with @Id
 	private Student student;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "Idc")
+	private Course course;
+
+
+	public Grade(@Min(0) @Max(10) int gvalue, Student student, Course course) {
+		this.gvalue = gvalue;
+		this.student = student;
+		this.course = course;
+	}
+	
+	
+	
 }
