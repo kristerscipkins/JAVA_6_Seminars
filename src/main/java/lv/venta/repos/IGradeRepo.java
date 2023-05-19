@@ -11,7 +11,7 @@ public interface IGradeRepo extends CrudRepository<Grade, Long> {
 
 	ArrayList<Grade> findByStudentIds(long id);
 
-	ArrayList<Grade> findByCourdeIdc(long id);
+	ArrayList<Grade> findByCourseIdc(long id);
 
 
 }

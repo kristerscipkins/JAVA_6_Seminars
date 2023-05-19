@@ -25,42 +25,39 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "course_table")//table in DB
+@Table(name = "course_table") // table in DB
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 public class Course {
-	
+
 	@Column(name = "Idc")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
 	private long idc;
-	
+
 	@NotNull
 	@Size(min = 3, max = 20)
 	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+")
-	@Column(name="Title")
+	@Column(name = "Title")
 	private String title;
-	
-	@Column(name="Creditpoints")
+
+	@Column(name = "Creditpoints")
 	@Min(value = 1)
 	@Max(value = 20)
 	private int creditpoints;
-	
+
 	@ManyToMany
-	@JoinTable(name = "prof_course_table", 
-	joinColumns = @JoinColumn(name = "Idc"),
-	inverseJoinColumns = @JoinColumn(name = "Idp"))
+	@JoinTable(name = "prof_course_table", joinColumns = @JoinColumn(name = "Idc"), inverseJoinColumns = @JoinColumn(name = "Idp"))
 	@ToString.Exclude
 	private Collection<Professor> professors = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "course")
 	@ToString.Exclude
 	private Collection<Grade> grades;
-
 
 	public Course(@NotNull @Size(min = 3, max = 20) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String title,
 			@Min(1) @Max(20) int creditpoints, ArrayList<Professor> professors) {
@@ -68,19 +65,18 @@ public class Course {
 		this.creditpoints = creditpoints;
 		this.professors = professors;
 	}
-	
+
 	public void addProfessor(Professor inputProfessor) {
-		if(!professors.contains(inputProfessor)) {
+		if (!professors.contains(inputProfessor)) {
 			professors.add(inputProfessor);
 		}
 	}
-	
+
 	public void removeProfessor(Professor inputProfessor) {
-		if(professors.contains(inputProfessor)) {
+		if (professors.contains(inputProfessor)) {
 			professors.remove(inputProfessor);
 		}
-		
+
 	}
 
-	
 }
