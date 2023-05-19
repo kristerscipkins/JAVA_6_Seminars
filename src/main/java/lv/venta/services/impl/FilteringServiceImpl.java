@@ -1,6 +1,7 @@
 package lv.venta.services.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,20 +68,45 @@ public class FilteringServiceImpl implements IFilteringService{
 
 	@Override
 	public ArrayList<Course> retrieveAllCoursesByStudentId(long id) throws Exception{
-		// TODO Auto-generated method stub
-		return null;
+		if (id>0) {
+			ArrayList<Course> filteredResults = courseRepo.findByGradesStudentIds(id);
+			return filteredResults;
+		} 
+		else {
+			throw new Exception("Incorrect ID");
+		}
 	}
 
 	@Override
 	public ArrayList<Course> retrieveAllCoursesByProffesorId(long id) throws Exception{
-		// TODO Auto-generated method stub
-		return null;
+		if (id>0) {
+			ArrayList<Course> filteredResults = courseRepo.findAllGradesProffesorIdp(id);
+			return filteredResults;
+		} 
+		else {
+			throw new Exception("Incorrect ID");
+		}
 	}
 
 	@Override
-	public float calculateAVGGradeInCourdeId(long id) throws Exception{
-		// TODO Auto-generated method stub
-		return 0;
+	public float calculateAVGGradeInCourseId(long id) throws Exception {
+	    if (id > 0) {
+	    	ArrayList<Grade> allGrades = gradeRepo.findByCourdeIdc(id);
+	        float avgGrade = 0;
+	        
+	        for (Grade grade : allGrades) {
+	            avgGrade += grade.getGvalue();
+	        }
+	        
+	        if (allGrades.size() > 0) {
+	            avgGrade = avgGrade / allGrades.size();
+	        }
+	        
+	        return avgGrade;
+	    } else {
+	        throw new Exception("Incorrect ID");
+	    }
 	}
+
 	
 }
