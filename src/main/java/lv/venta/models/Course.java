@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -49,10 +50,12 @@ public class Course {
 	@Max(value = 20)
 	private int creditpoints;
 	
-	
-	@ManyToMany(mappedBy = "courses")
+	@ManyToMany
+	@JoinTable(name = "prof_course_table", 
+	joinColumns = @JoinColumn(name = "Idc"),
+	inverseJoinColumns = @JoinColumn(name = "Idp"))
 	@ToString.Exclude
-	private Collection<Professor> professors;
+	private Collection<Professor> professors = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "course")
 	@ToString.Exclude
@@ -60,21 +63,24 @@ public class Course {
 
 
 	public Course(@NotNull @Size(min = 3, max = 20) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String title,
-			@Min(1) @Max(20) int creditpoints, ArrayList<Professor> professor) {
+			@Min(1) @Max(20) int creditpoints, ArrayList<Professor> professors) {
 		this.title = title;
 		this.creditpoints = creditpoints;
-		this.professors = professor;
+		this.professors = professors;
 	}
 	
-	public void addProffesor(Professor inputProffesor) {
-		if (!professors.contains(inputProffesor)) {
-			professors.add(inputProffesor);
+	public void addProfessor(Professor inputProfessor) {
+		if(!professors.contains(inputProfessor)) {
+			professors.add(inputProfessor);
 		}
 	}
-
-	private void removeProffesor(Professor inputProffesor) {
-			professors.remove(inputProffesor);
-
+	
+	public void removeProfessor(Professor inputProfessor) {
+		if(professors.contains(inputProfessor)) {
+			professors.remove(inputProfessor);
+		}
+		
 	}
+
 	
 }
