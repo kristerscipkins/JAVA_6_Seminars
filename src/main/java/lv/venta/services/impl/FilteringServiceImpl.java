@@ -84,18 +84,19 @@ public class FilteringServiceImpl implements IFilteringService {
 	@Override
 	public float calculateAVGGradeInCourseId(long id) throws Exception {
 		if (id > 0) {
-			ArrayList<Grade> allGrades = gradeRepo.findByCourseIdc(id);
-			float avgGrade = 0;
-
-			for (Grade grade : allGrades) {
-				avgGrade += grade.getGvalue();
-			}
-
-			if (allGrades.size() > 0) {
-				avgGrade = avgGrade / allGrades.size();
-			}
-
-			return avgGrade;
+//			ArrayList<Grade> allGrades = gradeRepo.findByCourseIdc(id);
+//			float avgGrade = 0;
+//
+//			for (Grade grade : allGrades) {
+//				avgGrade += grade.getGvalue();
+//			}
+//
+//			if (allGrades.size() > 0) {
+//				avgGrade = avgGrade / allGrades.size();
+//			}
+//
+//			return avgGrade;
+			return gradeRepo.myCalculateAverageGradeByCourseId(id);
 		} else {
 			throw new Exception("Incorrect ID");
 		}
