@@ -4,7 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.expression.Ids;
 
+import lv.venta.models.Student;
 import lv.venta.services.IFilteringService;
 
 @Controller
@@ -36,4 +41,30 @@ public class FilterController {
 		model.addAttribute("courses", filteringService.retrieveAllCourses());
 		return "all-courses-page";//will show all-students-page.html
 	}
+	
+	
+	
+	@GetMapping("/info/showAllGrades/students/{id}")//localhost:8080/info/showAllGrades/students/{id}
+	public String getAllGradesByStudentID(@PathVariable (name="id") long id, Model model) {
+		try {
+			model.addAttribute("grades", filteringService.retrieveAllGradesByStudentId(id));
+			return "all-grades-page";
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "error-page";	
+		}
+	}
+	
+	@GetMapping("/info/showAllCourses/students")//localhost:8080/info/showAllCourses/students?id=1
+	public String getShowAllCoursesByStudentId(@RequestParam("id") long id, Model model) {
+		try {
+			model.addAttribute("courses", filteringService.retrieveAllCoursesByStudentId(id));
+			return "all-courses-page";
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "error-page";
+		}
+	}
+	
+	
 }
