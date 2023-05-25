@@ -31,7 +31,7 @@ public class FilterController {
 		return "all-grades-page";//will show all-students-page.html
 	}
 	
-	@GetMapping("/info/showAllCourses")//localhost:8080/info/showAllGrades
+	@GetMapping("/info/showAllCourses")//localhost:8080/info/showAllCourses
 	public String getAllCoursesFunc(Model model) {
 		model.addAttribute("courses", filteringService.retrieveAllCourses());
 		return "all-courses-page";//will show all-students-page.html
